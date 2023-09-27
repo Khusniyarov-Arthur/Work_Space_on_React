@@ -1,11 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Vacancy } from "../Vacancy/Vacancy";
 import { Filter } from "../Filter/Filter";
 import style from "./Vacancies.module.css";
 import classNames from "classnames";
+import { useDispatch, useSelector } from "react-redux";
+import { getVacancies } from "../../store/vacanciesSlice";
+import { Loader } from "../../UI/Loader";
 
 export const Vacancies = () => {
+  const arrForRepeatLoader = " ".repeat(12).split("");
   const [toogleFilter, setToogleFilter] = useState(false);
+  const dispatch = useDispatch();
+  const data = useSelector(
+    (state) => state.vacanciesReducer.vacancies.vacancies
+  );
+
+  useEffect(() => {
+    dispatch(getVacancies());
+  }, []);
 
   return (
     <>
@@ -28,9 +40,21 @@ export const Vacancies = () => {
 
           <section className={style.cards}>
             <h2 className={style.visabiliti_hidden}>Список вакансий</h2>
-            <ul className={style.list}>
-              <Vacancy />
-            </ul>
+            {data ? (
+              <ul className={style.list}>
+                {data.map((item) => (
+                  <Vacancy key={item.id} card={item} />
+                ))}
+              </ul>
+            ) : (
+              <ul className={style.list}>
+                {arrForRepeatLoader.map((i, index) => (
+                  <li className={style.item} key={index}>
+                    <Loader />
+                  </li>
+                ))}
+              </ul>
+            )}
           </section>
         </div>
       </div>
