@@ -1,0 +1,49 @@
+.footer {
+  padding-bottom: 40px;
+}
+
+.wrapper {
+  display: grid;
+  gap: 27px;
+  grid-template-areas:
+    "logo ."
+    "copyright contacts";
+}
+
+.logo {
+  grid-area: logo;
+}
+
+.copyright {
+  grid-area: copyright;
+}
+
+.contacts {
+  grid-area: contacts;
+  justify-self: end;
+  min-width: 180px;
+}
+
+.contact {
+  margin-bottom: 8px;
+}
+
+.contact:last-child {
+  margin-bottom: 0;
+}
+
+.link:hover {
+  color: brown;
+}
+
+@media (max-width: 1150px) {
+  .footer {
+    padding-bottom: 40px;
+  }
+}
+
+@media (max-width: 880px) {
+  .footer {
+    padding-bottom: 24px;
+  }
+}
