@@ -1,8 +1,10 @@
 import React from "react";
 import style from "./Filter.module.css";
 import classNames from "classnames";
+import { useSelector } from "react-redux";
 
 export const Filter = ({ toogleFilter }) => {
+  const locations = useSelector((state) => state.locationsReducer.locations);
   return (
     <section
       className={
@@ -18,6 +20,12 @@ export const Filter = ({ toogleFilter }) => {
 
           <select name="city" id="city" className={style.filter__select}>
             <option value="">Выбрать город</option>
+
+            {locations.map((item, index) => (
+              <option key={index} value={item}>
+                {item}
+              </option>
+            ))}
           </select>
         </fieldset>
 

@@ -6,6 +6,7 @@ import classNames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
 import { getVacancies } from "../../store/vacanciesSlice";
 import { Loader } from "../../UI/Loader";
+import { getLocations } from "../../store/locationsSlice";
 
 export const Vacancies = () => {
   const arrForRepeatLoader = " ".repeat(12).split("");
@@ -17,6 +18,7 @@ export const Vacancies = () => {
 
   useEffect(() => {
     dispatch(getVacancies());
+    dispatch(getLocations());
   }, []);
 
   return (

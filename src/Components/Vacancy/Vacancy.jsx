@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import style from "./Vacancy.module.css";
 import { API_URL } from "../../api/api";
+import { Modal } from "../Modal/Modal";
+import { ModalContent } from "../ModalContent/ModalContent";
 
 export const Vacancy = ({ card }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <>
       <li className={style.item}>
-        <article className={style.vacancy} tabIndex="0" data-id={card.id}>
+        <article
+          onClick={() => setIsModalOpen(!isModalOpen)}
+          className={style.vacancy}
+          tabIndex="0"
+          data-id={card.id}
+        >
           <img
             src={`${API_URL}${card.logo}`}
             alt={`Логотип компании ${card.company}`}
@@ -24,6 +32,14 @@ export const Vacancy = ({ card }) => {
           </ul>
         </article>
       </li>
+      {isModalOpen && (
+        <Modal closeModal={() => setIsModalOpen(!isModalOpen)}>
+          <ModalContent
+            id={card.id}
+            closeModal={() => setIsModalOpen(!isModalOpen)}
+          />
+        </Modal>
+      )}
     </>
   );
 };

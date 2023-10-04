@@ -1,16 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { API_URL, VACANCY_URL } from "../api/api";
+import { API_URL, LOCATION_URL } from "../api/api";
 
 const initialState = {
   error: "",
-  vacancies: [],
+  locations: [],
 };
 
-export const getVacancies = createAsyncThunk(
-  "vacancies/getVacancies",
+export const getLocations = createAsyncThunk(
+  "locations/getLocations",
   async (_, { dispatch, rejectWithValue }) => {
     try {
-      const res = await fetch(`${API_URL}${VACANCY_URL}`);
+      const res = await fetch(`${API_URL}${LOCATION_URL}`);
       if (!res.ok) {
         const message = `Ошибка: ${res.status}`;
         throw new Error(message);
@@ -23,23 +23,23 @@ export const getVacancies = createAsyncThunk(
   }
 );
 
-const vacanciesSlice = createSlice({
-  name: "vacancies",
+const locationsSlice = createSlice({
+  name: "locations",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getVacancies.pending, (state) => {
+      .addCase(getLocations.pending, (state) => {
         state.error = "";
       })
-      .addCase(getVacancies.fulfilled, (state, action) => {
-        state.vacancies = action.payload;
+      .addCase(getLocations.fulfilled, (state, action) => {
+        state.locations = action.payload;
         state.error = "";
       })
-      .addCase(getVacancies.rejected, (state, action) => {
+      .addCase(getLocations.rejected, (state, action) => {
         state.error = action.payload;
       });
   },
 });
 
-export default vacanciesSlice.reducer;
+export default locationsSlice.reducer;
