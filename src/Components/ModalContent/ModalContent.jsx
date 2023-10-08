@@ -4,7 +4,7 @@ import { useGetModal } from "../../hooks/useGetModal";
 import { Loader } from "../../UI/Loader";
 import { useState } from "react";
 import { Error } from "../Error/Error";
-import { sendMessageTg } from "../../hooks/sendMessageTg";
+import { sendMessageTg } from "../../utils/sendMessageTg";
 
 export const ModalContent = ({ id, closeModal }) => {
   const [errorGetDataModal, setErrorGetDataModal] = useState("");

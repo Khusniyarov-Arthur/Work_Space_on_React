@@ -1,43 +1,51 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { API_URL, VACANCY_URL } from "../api/api";
 
 const initialState = {
   error: "",
   vacancies: [],
+  pagination: [],
 };
 
-export const getVacancies = createAsyncThunk(
-  "vacancies/getVacancies",
-  async (_, { dispatch, rejectWithValue }) => {
+export const getVacanciesRequest = createAsyncThunk(
+  "vacancies/getVacanciesRequest",
+  async (url) => {
     try {
-      const res = await fetch(`${API_URL}${VACANCY_URL}`);
+      const res = await fetch(`${url}`);
+
       if (!res.ok) {
-        const message = `Ошибка: ${res.status}`;
-        throw new Error(message);
+        throw new Error(`Ошибка: ${res.status}`);
       }
+
       const data = await res.json();
       return data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      throw error;
     }
   }
 );
 
-const vacanciesSlice = createSlice({
+export const vacanciesSlice = createSlice({
   name: "vacancies",
   initialState,
-  reducers: {},
+  reducers: {
+    clearState: (state) => {
+      state.vacancies = [];
+    },
+    lastUrl: (state, action) => {
+      state.lastUrl = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(getVacancies.pending, (state) => {
+      .addCase(getVacanciesRequest.pending, (state) => {
         state.error = "";
       })
-      .addCase(getVacancies.fulfilled, (state, action) => {
-        state.vacancies = action.payload;
-        state.error = "";
+      .addCase(getVacanciesRequest.fulfilled, (state, action) => {
+        state.vacancies = state.vacancies.concat(action.payload.vacancies);
+        state.pagination = action.payload.pagination;
       })
-      .addCase(getVacancies.rejected, (state, action) => {
-        state.error = action.payload;
+      .addCase(getVacanciesRequest.rejected, (state, action) => {
+        state.error = action.error.message;
       });
   },
 });

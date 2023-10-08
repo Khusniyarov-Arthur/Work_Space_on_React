@@ -156,7 +156,7 @@
     position: relative;
   }
 
-  .filter__btn-clear {
+  .filter__btn_clear {
     top: 0;
     left: 130px;
     padding: 7px 0 7px 16px;

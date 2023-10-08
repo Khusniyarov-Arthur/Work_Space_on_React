@@ -1,3 +1,13 @@
+.not_vacancies {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  list-style: none;
+  color: #2a18ff;
+  font-size: 24px;
+}
+
 .vacancies {
   position: relative;
   padding: 100px 0;
@@ -50,6 +60,9 @@
   .list {
     grid-template-columns: repeat(3, minmax(208px, 1fr));
     gap: 10px;
+  }
+  .cards {
+    width: 100%;
   }
 }
 

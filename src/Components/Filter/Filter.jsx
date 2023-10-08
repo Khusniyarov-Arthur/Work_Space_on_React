@@ -1,10 +1,34 @@
-import React from "react";
 import style from "./Filter.module.css";
 import classNames from "classnames";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { API_URL, VACANCY_URL } from "../../api/api";
+import {
+  getVacanciesRequest,
+  vacanciesSlice,
+} from "../../store/vacanciesSlice";
 
 export const Filter = ({ toogleFilter }) => {
   const locations = useSelector((state) => state.locationsReducer.locations);
+  const dispatch = useDispatch();
+
+  const filterVacancies = (event) => {
+    event.preventDefault();
+
+    const myFormData = new FormData(event.target);
+    const urlWithParams = new URL(`${API_URL}${VACANCY_URL}`);
+
+    myFormData.forEach((value, key) => {
+      urlWithParams.searchParams.append(key, value);
+    });
+    dispatch(vacanciesSlice.actions.clearState());
+    dispatch(getVacanciesRequest(urlWithParams));
+    dispatch(vacanciesSlice.actions.lastUrl(urlWithParams.href));
+  };
+
+  const resetLastUrl = () => {
+    dispatch(vacanciesSlice.actions.lastUrl(`${API_URL}${VACANCY_URL}`));
+  };
+
   return (
     <section
       className={
@@ -14,7 +38,12 @@ export const Filter = ({ toogleFilter }) => {
       }
     >
       <h2 className={style.filter__title}>Фильтр</h2>
-      <form className={style.filter__form}>
+      <form
+        onSubmit={(e) => {
+          filterVacancies(e);
+        }}
+        className={style.filter__form}
+      >
         <fieldset className={style.filter__fieldset}>
           <legend className={style.filter__legend}>Город</legend>
 
@@ -175,7 +204,13 @@ export const Filter = ({ toogleFilter }) => {
             <button className={style.filter__btn_success} type="submit">
               Применить
             </button>
-            <button className={style.filter__btn_clear} type="reset">
+            <button
+              onClick={() => {
+                resetLastUrl();
+              }}
+              className={style.filter__btn_clear}
+              type="reset"
+            >
               Очистить
             </button>
           </div>
