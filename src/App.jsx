@@ -1,17 +1,27 @@
-import { Container } from "./Components/Container/Container";
-import { Footer } from "./Components/Footer/Footer";
-import { Header } from "./Components/Header/Header";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Hero } from "./Components/Hero/Hero";
 import { Vacancies } from "./Components/Vacancies/Vacancies";
+import { Layout } from "./Components/Layout/Layout";
+import { AddVacancy } from "./Components/AddVacancy/AddVacancy";
 
 function App() {
   return (
-    <Container>
-      <Header />
-      <Hero />
-      <Vacancies />
-      <Footer />
-    </Container>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route
+            index
+            element={
+              <>
+                <Hero />
+                <Vacancies />
+              </>
+            }
+          />
+          <Route path="/:addvacancy" element={<AddVacancy />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

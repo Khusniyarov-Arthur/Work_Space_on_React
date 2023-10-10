@@ -18,15 +18,10 @@ export const Vacancies = () => {
   const dispatch = useDispatch();
 
   const data = useSelector((state) => state.vacanciesReducer.vacancies);
-  const currentPage = useSelector(
-    (state) => state.vacanciesReducer.pagination.currentPage
+  const { currentPage, totalPages, totalVacancies } = useSelector(
+    (state) => state.vacanciesReducer.pagination
   );
-  const totalPages = useSelector(
-    (state) => state.vacanciesReducer.pagination.totalPages
-  );
-  const totalVacancies = useSelector(
-    (state) => state.vacanciesReducer.pagination.totalVacancies
-  );
+
   const lastUrl = useSelector((state) => state.vacanciesReducer.lastUrl);
 
   const endList = useRef(null);
@@ -67,6 +62,7 @@ export const Vacancies = () => {
 
   useEffect(() => {
     dispatch(vacanciesSlice.actions.lastUrl(url));
+    dispatch(vacanciesSlice.actions.clearState());
     dispatch(getVacanciesRequest(url));
     dispatch(getLocations());
   }, []);

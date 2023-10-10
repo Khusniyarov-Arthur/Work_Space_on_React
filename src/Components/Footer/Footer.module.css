@@ -1,12 +1,13 @@
 .footer {
   padding-bottom: 40px;
+  flex-shrink: 0;
 }
 
 .wrapper {
   display: grid;
   gap: 27px;
   grid-template-areas:
-    "logo ."
+    "logo logo"
     "copyright contacts";
 }
 

@@ -27,6 +27,8 @@ export const Filter = ({ toogleFilter }) => {
 
   const resetLastUrl = () => {
     dispatch(vacanciesSlice.actions.lastUrl(`${API_URL}${VACANCY_URL}`));
+    dispatch(vacanciesSlice.actions.clearState());
+    dispatch(getVacanciesRequest(`${API_URL}${VACANCY_URL}`));
   };
 
   return (
