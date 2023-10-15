@@ -2,7 +2,7 @@ import style from "./ModalContent.module.css";
 import { API_URL } from "../../api/api.js";
 import { useGetModal } from "../../hooks/useGetModal";
 import { Loader } from "../../UI/Loader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Error } from "../Error/Error";
 import { sendMessageTg } from "../../utils/sendMessageTg";
 
@@ -29,10 +29,17 @@ export const ModalContent = ({ id, closeModal }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setEmail("");
     sendMessageTg(email);
     setApplication("Заявка отправлена");
+    setEmail("");
   };
+
+  useEffect(() => {
+    document.body.style.overflowY = "hidden";
+    return () => {
+      document.body.style.overflowY = "auto";
+    };
+  }, []);
 
   return (
     <>
@@ -71,15 +78,12 @@ export const ModalContent = ({ id, closeModal }) => {
                 className={style.input}
                 type="text"
                 name="message"
-                placeholder="Введите свой Email"
+                placeholder="Введите контактные данные"
                 value={email}
                 onChange={handelChangeEmail}
               />
               <input name="vacancyId" value={company} type="hidden" />
-              <button
-                className={style.btn}
-                disabled={application === "Заявка отправлена" ? true : false}
-              >
+              <button className={style.btn} disabled={!email}>
                 {application}
               </button>
             </form>

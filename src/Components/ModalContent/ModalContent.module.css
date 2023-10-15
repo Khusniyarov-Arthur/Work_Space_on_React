@@ -2,8 +2,6 @@
   margin: 0 auto;
 }
 .detail {
-  position: relative;
-  z-index: -50;
   width: 780px;
   border-radius: 16px;
   background: #fff;
@@ -55,6 +53,7 @@
   max-width: 465px;
   line-height: 1.4;
   padding-right: 10px;
+  white-space: pre-wrap;
 }
 
 .fields {
@@ -87,10 +86,9 @@
 }
 
 .input {
-  width: 180px;
   font-size: 14px;
   height: 32px;
-  padding: 0 16px;
+  padding: 0 10px;
   border-radius: 16px;
   border: 1px solid #cccccc;
 }

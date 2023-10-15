@@ -62,12 +62,6 @@
   .wrapper {
     flex-wrap: wrap;
   }
-  .btn_wrap {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 24px;
-  }
 }
 
 @media (max-width: 605px) {
@@ -93,5 +87,7 @@
   .btn_wrap {
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
+    margin-top: 24px;
   }
 }
