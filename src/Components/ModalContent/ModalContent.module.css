@@ -17,6 +17,7 @@
 }
 
 .logo {
+  object-fit: contain;
   width: 100%;
   max-height: 101px;
   grid-row: 1 / 3;

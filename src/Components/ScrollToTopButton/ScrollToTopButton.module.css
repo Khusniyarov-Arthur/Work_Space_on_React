@@ -1,0 +1,16 @@
+.hidden {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: transparent;
+  border: 2px solid #2a18ff;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 34px;
+  height: 34px;
+  background: url("../img/up-arrow.svg") no-repeat center;
+}
+
+.visible {
+  display: block;
+}

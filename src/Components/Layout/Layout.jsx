@@ -3,6 +3,7 @@ import { Footer } from "../Footer/Footer";
 import { Container } from "../Container/Container";
 import { Header } from "../Header/Header";
 import style from "./Layout.module.css";
+import { ScrollToTopButton } from "../ScrollToTopButton/ScrollToTopButton";
 
 export const Layout = () => {
   return (
@@ -10,6 +11,7 @@ export const Layout = () => {
       <Header />
       <div className={style.outlet}>
         <Outlet />
+        <ScrollToTopButton />
       </div>
       <Footer />
     </Container>
